@@ -15,6 +15,7 @@ import {
 
 import { EthereumDIDRegistry } from './config/EthereumDIDRegistry.js'
 import { deployments, EthrDidRegistryDeployment } from './config/deployments.js'
+import { ProviderConfiguration } from './configuration.js'
 
 export {
   DEFAULT_REGISTRY_ADDRESS as REGISTRY,
@@ -34,6 +35,7 @@ export {
   MetaSignature,
   deployments,
   EthrDidRegistryDeployment,
+  ProviderConfiguration,
 }
 
 // workaround for esbuild/vite/hermes issues
