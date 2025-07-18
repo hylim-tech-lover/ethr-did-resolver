@@ -5,6 +5,7 @@ import {
   concat,
   Contract,
   encodeBytes32String,
+  FallbackProvider,
   getBytes,
   hexlify,
   isHexString,
@@ -60,7 +61,7 @@ export class EthrDidController {
     contract?: Contract,
     signer?: Signer,
     chainNameOrId = 'mainnet',
-    provider?: Provider,
+    provider?: FallbackProvider | Provider,
     rpcUrl?: string,
     registry: string = DEFAULT_REGISTRY_ADDRESS,
     legacyNonce = true

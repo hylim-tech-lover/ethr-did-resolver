@@ -1,4 +1,4 @@
-import { Contract, ContractFactory, JsonRpcProvider, Provider } from 'ethers'
+import { Contract, ContractFactory, FallbackProvider, JsonRpcProvider, Provider } from 'ethers'
 import { DEFAULT_REGISTRY_ADDRESS } from './helpers.js'
 import { deployments, EthrDidRegistryDeployment } from './config/deployments.js'
 import { EthereumDIDRegistry } from './config/EthereumDIDRegistry.js'
@@ -23,7 +23,7 @@ const knownInfuraNames = ['mainnet', 'aurora', 'linea:goerli', 'sepolia']
  * ```
  */
 export interface ProviderConfiguration extends Omit<EthrDidRegistryDeployment, 'chainId'> {
-  provider?: Provider | null
+  provider?: Provider | FallbackProvider | null
   chainId?: string | number | bigint
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   web3?: any
@@ -61,7 +61,7 @@ function configureNetworksWithInfura(projectId?: string): ConfiguredNetworks {
 }
 
 export function getContractForNetwork(conf: ProviderConfiguration): Contract {
-  let provider: Provider = conf.provider || conf.web3?.currentProvider
+  let provider: FallbackProvider | Provider = conf.provider || conf.web3?.currentProvider
   if (!provider) {
     if (conf.rpcUrl) {
       const chainIdRaw = conf.chainId ? conf.chainId : deployments.find((d) => d.name === conf.name)?.chainId
